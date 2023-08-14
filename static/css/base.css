@@ -1,8 +1,6 @@
 html {
     height: 100%;
-    
 }
-
 
 body {
     background: url('/media/home/pexels-pixabay-267586.jpg') no-repeat center center fixed;
@@ -11,11 +9,6 @@ body {
     color: #555;
     font-family: 'Lato';
 }
-
-.devtest{
-    background-color: aqua;
-}
-
 
 /* from Bulma */
 .icon {
@@ -63,6 +56,10 @@ body {
     border: 1px solid black !important;
 }
 
+.bg-black {
+    background: #000 !important;
+}
+
 .overlay {
 	height: 100%;
 	width: 100%;
@@ -76,7 +73,19 @@ body {
 a.category-badge > span.badge:hover {
     background: #212529 !important;
     color: #fff !important;
+}
 
+.btt-button {
+    height: 42px;
+    width: 42px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.btt-link {
+    cursor: pointer;
+}
 
 /* -------------------------------- Media Queries */
 
@@ -111,4 +120,4 @@ a.category-badge > span.badge:hover {
     body {
         height: calc(100vh - 116px);
     }
- }
+}
