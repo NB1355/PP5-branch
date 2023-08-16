@@ -6,5 +6,5 @@ from .webhooks import webhook
 urlpatterns = [
     path('', views.checkout, name='checkout'),
     path('checkout_success/<order_number>', views.checkout_success, name='checkout_success'),
-    STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
+    path('wh/', webhook, name='webhook'),
 ]
