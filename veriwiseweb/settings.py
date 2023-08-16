@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'du&5dr1xcn1bda&th4w!z8$!yxx%)=)-(vzedr794q)8oc1dz('
+
+# SECRET_KEY = 'du&5dr1xcn1bda&th4w!z8$!yxx%)=)-(vzedr794q)8oc1dz('
+# SECRET_KEY = os.getenv('SECRET_KEY', '')
+SECRET_KEY = config('SECRET_KEY')
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -165,5 +171,5 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 
 # Stripe
 STRIPE_CURRENCY = 'usd'
-STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', '')
