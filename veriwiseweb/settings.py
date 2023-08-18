@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,12 +21,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'du&5dr1xcn1bda&th4w!z8$!yxx%)=)-(vzedr794q)8oc1dz('
+
+# SECRET_KEY = 'du&5dr1xcn1bda&th4w!z8$!yxx%)=)-(vzedr794q)8oc1dz('
+# SECRET_KEY = os.getenv('SECRET_KEY', '')
+SECRET_KEY = config('SECRET_KEY')
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-nb1355-pp5branch-g801y6yrmqf.ws-eu103.gitpod.io']
+ALLOWED_HOSTS = ['8000-nb1355-pp5branch-g801y6yrmqf.ws-eu104.gitpod.io']
 
 
 # Application definition
@@ -45,6 +51,10 @@ INSTALLED_APPS = [
     'pages',
     'products',
     'bag',
+    'checkout',
+    'profiles',
+    # other
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +69,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'veriwiseweb.urls'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -70,14 +82,21 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request', # required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
                 'bag.contexts.bag_contents',
             ],
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+            ]
         },
     },
 ]
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -155,5 +174,12 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# Stripe
 FREE_DELIVERY_THRESHOLD = 50
 STANDARD_DELIVERY_PERCENTAGE = 10
+
+# Stripe
+STRIPE_CURRENCY = 'usd'
+STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', '')
+STRIPE_WH_SECRET = config('STRIPE_WH_SECRET', '')
